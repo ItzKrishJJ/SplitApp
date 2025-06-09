@@ -74,9 +74,10 @@ public class ExpenseService {
                 .orElseGet(() -> personRepo.save(Person.builder().name(request.getPaidBy()).build()));
         existing.setPaidBy(paidBy);
 
-        // Clear old shares and save new ones
-        shareRepo.deleteAll(existing.getShares());
+        // Instead of deleting shares via shareRepo, clear the existing collection
+        existing.getShares().clear();
 
+        // Create new shares and add to the existing shares list
         List<ExpenseShare> updatedShares = new ArrayList<>();
         for (ExpenseRequest.ShareDetail detail : request.getShares()) {
             Person person = personRepo.findByName(detail.getName())
@@ -92,8 +93,11 @@ public class ExpenseService {
             updatedShares.add(share);
         }
 
-        shareRepo.saveAll(updatedShares);
-        existing.setShares(updatedShares);
+        // Add all updatedShares to existing shares collection (same list instance)
+        existing.getShares().addAll(updatedShares);
+
+        // Save the expense — cascading will handle shares insert/update/delete properly
         return expenseRepo.save(existing);
     }
+
 }

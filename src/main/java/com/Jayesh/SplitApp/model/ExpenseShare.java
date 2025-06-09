@@ -1,4 +1,5 @@
 package com.Jayesh.SplitApp.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class ExpenseShare {
 
     @ManyToOne
     @JoinColumn(name = "expense_id", nullable = false)
+    @JsonBackReference
     private Expense expense;
 
     @ManyToOne
