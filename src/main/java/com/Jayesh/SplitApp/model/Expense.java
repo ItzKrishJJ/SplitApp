@@ -33,7 +33,7 @@ public class Expense {
     @JoinColumn(name = "paid_by", nullable = false)
     private Person paidBy;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/mm/yyyy")
     @Column(name = "created_at", updatable = false, insertable = false)
     private LocalDateTime createdAt;
 
