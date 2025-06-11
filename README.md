@@ -141,4 +141,5 @@ For Railway deployment, use environment variables instead.
  Flyway DB migration support
 
 🧑‍💻 Author
-Made with ❤️ by Jayesh Jadhav
+Jayesh Jadhav
+jayesh.22320128@viit.ac.in
