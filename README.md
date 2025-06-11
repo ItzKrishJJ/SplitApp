@@ -1,30 +1,31 @@
-🌐 Live Deployment
-🔗 https://splitapp-production.up.railway.app
-
 # 💸 SplitApp - Expense Splitter
 
-A full-stack backend service built using **Spring Boot** and **PostgreSQL** for splitting expenses among people. Designed for personal use or small groups to settle up efficiently.
+🌐 **Live Deployment:** [https://splitapp-production.up.railway.app](https://splitapp-production.up.railway.app)
+
+A backend API service built with **Spring Boot** and **PostgreSQL** to help groups split and settle expenses fairly. Perfect for roommates, trips, or any group activity.
 
 ---
 
 ## 🚀 Features
 
-- Add people and expenses
-- Split expenses equally or by exact amount/percent
-- Calculate balances per person
-- View optimized settlements
-- RESTful APIs with clear DTOs and validations
+- ➕ Add people and expenses
+- 📊 Split expenses (equal, exact, percent)
+- 💰 View per-person balances
+- 🔄 Optimized settlement calculation
+- 📡 RESTful APIs with DTOs and validation
 
 ---
 
 ## 🔧 Tech Stack
 
-- **Backend:** Java 17, Spring Boot 3
-- **Database:** PostgreSQL
-- **ORM:** JPA + Hibernate
-- **Build Tool:** Maven
-- **Deployment:** Railway (free-tier)
-- **Testing:** Postman Collection
+| Component   | Technology          |
+|------------|---------------------|
+| Backend    | Spring Boot 3 (Java 17) |
+| Database   | PostgreSQL          |
+| ORM        | Hibernate (JPA)     |
+| Build Tool | Maven               |
+| Deployment | Railway             |
+| Testing    | Postman             |
 
 ---
 
@@ -34,56 +35,57 @@ A full-stack backend service built using **Spring Boot** and **PostgreSQL** for 
 
 - Java 17+
 - Maven 3.8+
-- PostgreSQL (locally or via Railway)
+- PostgreSQL
 - Git
 
 ---
- ⚙️ Local Setup Instructions
 
+### ⚙️ Local Setup Instructions
+
+```bash
 # Clone the repository
 git clone https://github.com/YOUR_USERNAME/SplitApp.git
 cd SplitApp
 
-# Set up environment variables
-cp .env.example .env   # Or use application.properties manually
-
-# Configure PostgreSQL credentials in `src/main/resources/application.properties`
-# Or use environment variables for datasource URL, username, and password
+# Set up environment variables (or use application.properties directly)
+cp .env.example .env
 
 # Build the project
 ./mvnw clean install
 
 # Run the application
 ./mvnw spring-boot:run
-App will start at:
-👉 http://localhost:8080
+```
 
-🗂️ API Endpoints
-Full Postman Collection included:
-📂 Expense Splitter APIs.postman_collection.json
+📍 App runs at: [http://localhost:8080](http://localhost:8080)
 
-Key Endpoints:
+---
 
-Method	Endpoint	Description
-GET	/people	List all persons
-POST	/people	Add a person
-POST	/expenses	Add new expense
-GET	/balances	Get balances
-GET	/settlements	Get optimized settlements
+## 🗂️ API Endpoints
 
-🗃️ Database Schema
-Tables created via JPA:
+> 📦 Full Postman Collection: `Expense Splitter APIs.postman_collection.json`
 
-person
+| Method | Endpoint      | Description          |
+|--------|---------------|----------------------|
+| GET    | `/people`     | List all persons     |
+| POST   | `/people`     | Add a new person     |
+| POST   | `/expenses`   | Add a new expense    |
+| GET    | `/balances`   | View balances        |
+| GET    | `/settlements`| Optimized settlements|
 
-expense
+---
 
-expense_share
+## 🗃️ Database Schema
 
-🔍 Entity Overview:
-java
-Copy
-Edit
+Tables auto-created via JPA:
+
+- **person**
+- **expense**
+- **expense_share**
+
+### 🔍 Entity Overview
+
+```java
 @Entity
 class Person {
   Long id;
@@ -107,39 +109,60 @@ class ExpenseShare {
   ShareType shareType; // EQUAL | EXACT | PERCENT
   BigDecimal value;
 }
-If using PostgreSQL manually, create schema with:
+```
 
-sql
-Copy
-Edit
+To set up the schema manually (if needed):
+```sql
 CREATE TABLE person (...);
 CREATE TABLE expense (...);
 CREATE TABLE expense_share (...);
-Or export from Hibernate logs after first run.
+```
 
-🛠️ Configuration
-Your main application.properties should look like:
+---
 
-properties
-Copy
-Edit
+## ⚙️ Configuration
+
+Sample `application.properties` for local:
+```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/splitapp
 spring.datasource.username=your_pg_user
 spring.datasource.password=your_pg_password
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
-For Railway deployment, use environment variables instead.
+```
+For Railway: use environment variables in the Railway dashboard.
 
+---
 
-✅ TODOs / Future Enhancements
- Add user authentication (JWT)
+## 🧮 Settlement Logic Explained
 
- Export settlement as PDF or CSV
+The system distributes the total expense among participants based on the selected sharing mode:
+- **EQUAL**: Equal division
+- **EXACT**: Fixed amount per person
+- **PERCENT**: Percentage-based contribution
 
- React frontend for UI
+Balances are then calculated per person, and net dues are minimized using a greedy algorithm to settle debts optimally.
 
- Flyway DB migration support
+---
 
-🧑‍💻 Author
-Jayesh Jadhav
-jayesh.22320128@viit.ac.in
+## 📌 Known Limitations
+
+- No user authentication (yet)
+- No frontend UI (Postman recommended)
+- Limited validation on deployed version (local worked better)
+
+---
+
+## ✅ TODOs / Future Enhancements
+
+- 🔐 Add JWT-based authentication
+- 📤 Export settlements (PDF/CSV)
+- 🌐 React-based frontend
+- 🛠️ Flyway DB migration support
+
+---
+
+## 👨‍💻 Author
+
+**Jayesh Jadhav**  
+📧 jayesh.22320128@viit.ac.in
