@@ -3,6 +3,7 @@ package com.Jayesh.SplitApp.controller;
 import com.Jayesh.SplitApp.dto.ExpenseRequest;
 import com.Jayesh.SplitApp.model.Expense;
 import com.Jayesh.SplitApp.service.ExpenseService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +43,7 @@ public class ExpenseController {
     }
 
     @PostMapping
-    public ResponseEntity<Expense> createExpense(@RequestBody ExpenseRequest request) {
+    public ResponseEntity<Expense> createExpense(@Valid @RequestBody ExpenseRequest request) {
         try {
             return ResponseEntity.ok(expenseService.createExpense(request));
         }catch (Exception e) {
