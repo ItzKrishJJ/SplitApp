@@ -68,7 +68,6 @@ cp .env.example .env
 | Method | Endpoint      | Description          |
 |--------|---------------|----------------------|
 | GET    | `/people`     | List all persons     |
-| POST   | `/people`     | Add a new person     |
 | POST   | `/expenses`   | Add a new expense    |
 | GET    | `/balances`   | View balances        |
 | GET    | `/settlements`| Optimized settlements|
