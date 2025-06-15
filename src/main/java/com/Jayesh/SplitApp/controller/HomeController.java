@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "Welcome to SplitWiseUp";
+        return "Welcome to SplitWiseUp Split Expenses and Manage Expenses";
     }
 }
